@@ -67,11 +67,9 @@ namespace telegramcryptobot.src
             for (int i = 0; i < shifr.Length - 16; i++)
                 mess[i] = shifr[i];
             Aes aes = Aes.Create();
-            aes.Key = key;
-            aes.IV = bytesIv;
             string text = "";
             byte[] data = mess;
-            ICryptoTransform crypt = aes.CreateDecryptor(aes.Key, aes.IV);
+            ICryptoTransform crypt = aes.CreateDecryptor(key, bytesIV);
             using (MemoryStream ms = new MemoryStream(data))
             {
                 using (CryptoStream cs = new CryptoStream(ms, crypt, CryptoStreamMode.Read))
@@ -86,3 +84,4 @@ namespace telegramcryptobot.src
         }
     }
 }
+
